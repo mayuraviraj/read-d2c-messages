@@ -15,6 +15,7 @@ import java.util.function.Consumer;
 public class App {
 
     private static final Logger logger = LoggerFactory.getLogger(App.class);
+    public static final String IOTHUB_CONNECTION_DEVICE_ID = "iothub-connection-device-id";
     private static DatafeedService shareInsightDatafeedService;
 
     public static void main(String[] args) throws IOException {
@@ -77,7 +78,7 @@ public class App {
                                             receivedEvent.getSystemProperties().getOffset(),
                                             receivedEvent.getSystemProperties().getSequenceNumber(),
                                             receivedEvent.getSystemProperties().getEnqueuedTime()));
-                                    logger.info(String.format("| Device ID: %s", receivedEvent.getProperties().get("iothub-connection-device-id")));
+                                    logger.info(String.format("| Device ID: %s", receivedEvent.getSystemProperties().get(IOTHUB_CONNECTION_DEVICE_ID)));
                                     logger.info(String.format("| Message Payload: %s", new String(receivedEvent.getBody(),
                                             Charset.defaultCharset())));
                                     logger.info("Publishing to kafka...");
